@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+
+
+/* Reset margin & padding */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic typography reset */
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
