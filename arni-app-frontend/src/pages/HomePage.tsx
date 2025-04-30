@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { motion } from 'framer-motion';
-import logo from '../assets/nrw_transparent.png';
 
 const services = [
   {
@@ -12,16 +11,20 @@ const services = [
       "Regain arm and leg function",
       "Increase mobility for everyday activities",
     ],
-    location: "Available at Private Gym, Vale of Neath Leisure Centre, and Glynneath Training Centre (SA115DB).",
+    quote: "",
+    location: ""
   },
   {
     title: "Personalised Home Recovery Programs",
     description: "Tailored plans empowering recovery from the comfort of your home.",
-    quote: "Consistent exercise and activity at home is essential for maximal progress.",
+    quote: "",
+    location: ""
   },
   {
     title: "GP-Referred Exercise Programs",
     description: "Exercise strategies designed with your GP to manage specific health needs.",
+    quote: "",
+    location: ""
   },
 ];
 
@@ -39,82 +42,72 @@ const instructors = [
 const HomePage = () => {
   return (
     <div className="flex flex-col min-h-screen justify-between bg-gradient-to-br from-blue-50 to-blue-100 antialiased">
-      {/* Header */}
-      <header className="flex justify-between items-center p-4 md:px-8 shadow-sm bg-white">
-        <Link to="/" className="flex items-center">
-          <img src={logo} alt="Neuro Rehab Wales Logo" className="h-25 object-contain" />
-        </Link>
-        <nav className="space-x-4 flex items-center">
-          <Link to="/" className="text-gray-700 hover:text-blue-600">Home</Link>
-          <a href="https://www.instagram.com/neuro_rehab_wales" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-1 text-gray-700 hover:text-blue-600">
-            <FaInstagram />
-            <span>Instagram</span>
-          </a>
-          <a href="https://www.facebook.com/profile.php?id=100064278596616" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-1 text-gray-700 hover:text-blue-600">
-            <FaFacebookF />
-            <span>Facebook</span>
-          </a>
-        </nav>
-      </header>
-
+    
       {/* Main */}
       <main className="flex flex-col items-center justify-start flex-grow container mx-auto px-4 text-center py-12">
         {/* Hero Section */}
-        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-2 leading-tight">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-10 mt-10 leading-tight">
           Unlock Your Recovery Potential
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mb-8">
           Expert rehabilitation programs tailored to your journey.  
           Supporting survivors to rebuild strength, confidence, and independence.
         </p>
-        <Link to="/classes" className="mb-12 px-6 py-3 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 hover:scale-105 transition">
+        <Link to="/book" className="mb-12 px-6 py-3 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 hover:scale-105 transition">
           Begin Your Journey
         </Link>
 
-        {/* About Us */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.1 }}
-          className="w-full mb-16 text-center"
-        >
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">About Us</h2>
-          <p className="text-lg text-gray-600">
-            We specialise in personalised recovery pathways for stroke survivors and individuals with neurological conditions.
-            <br />
-            Our compassionate, one-on-one approach empowers you to reclaim mobility, strength, and confidence.
-          </p>
-        </motion.section>
-
+      <div className="">
         {/* Why Choose Us */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true, amount: 0.1 }}
-          className="w-full mb-16"
+          className="w-full mx-auto px-4 py-12 mb-16"
         >
           <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Why Choose Us: Trusted Expertise</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
             {[
-              "15+ Years of Specialist Experience",
-              "Certified ARNI Stroke Rehabilitation Experts",
-              "Qualified Level 4 Exercise Referral Specialists",
-              "Dedicated to South Wales Community Health",
-            ].map((title, index) => (
+              { emoji: "🏅", title: "15+ Years of Specialist Experience", description: "Proven success supporting neurological recovery." },
+              { emoji: "🎓", title: "Certified ARNI Stroke Rehabilitation Experts", description: "Trained to deliver the gold standard in post-stroke care." },
+              { emoji: "🏋️‍♂️", title: "Qualified Level 4 Exercise Referral Specialists", description: "Safe, effective support for complex health conditions." },
+              {
+                emoji: "❤️",
+                title: "Dedicated to South Wales Community Health",
+                description: "Locally based, passionately serving South Wales.",
+                extra: [
+                  "Private Gym",
+                  "Vale of Neath Leisure Centre",
+                  "Glynneath Training Centre"
+                ]
+              },
+            ].map((point, index) => (
               <div key={index} className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-                <h3 className="font-bold text-blue-700 mb-2">{title}</h3>
+                <h3 className="font-bold text-blue-700 mb-2">
+                  {point.emoji} {point.title}
+                </h3>
                 <p className="text-gray-600">
-                  {index === 0 && "Proven success supporting neurological recovery."}
-                  {index === 1 && "Trained to deliver the gold standard in post-stroke care."}
-                  {index === 2 && "Safe, effective support for complex health conditions."}
-                  {index === 3 && "Locally based, passionately serving South Wales."}
+                  {point.description}
                 </p>
+                {point.extra && (
+                  Array.isArray(point.extra) ? (
+                    <ul className="list-disc list-inside text-gray-600 mt-2">
+                      {point.extra.map(item => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-600 mt-2">
+                      {point.extra}
+                    </p>
+                  )
+                )}
               </div>
             ))}
           </div>
         </motion.section>
+      </div>
 
         {/* Services */}
         <motion.section
@@ -194,11 +187,6 @@ const HomePage = () => {
           </div>
         </motion.section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-blue-50 text-center text-blue-500 text-lg py-8">
-        &copy; {new Date().getFullYear()} Neuro Rehab Wales. Empowering Recovery, One Step at a Time.
-      </footer>
     </div>
   );
 };
